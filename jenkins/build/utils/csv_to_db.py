@@ -145,7 +145,7 @@ class PREPARE:
                     '{result["file_name"]}',
                     '{result["process"]}', 
                     '{result["message"]}', 
-                    '{result["error"]}'
+                    '{str(result["error"]).replace("'",'"')}'
                     )
                     """
                 )
