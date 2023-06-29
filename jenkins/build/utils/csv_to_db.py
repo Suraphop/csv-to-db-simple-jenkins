@@ -187,6 +187,11 @@ class PREPARE:
                 return query_df
         except Exception as e:
                 self.error_msg(self.query_df.__name__,"cannot select with sql code",e)
+            
+    def mfg_date(self,date_time):
+        mfg_date = date_time - timedelta(hours=7)
+        mfg_date_string = mfg_date.strftime("%Y-%m-%d")
+        return mfg_date_string
     
 
 class TALYSURF(PREPARE):
