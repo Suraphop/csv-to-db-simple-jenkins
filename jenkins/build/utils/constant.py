@@ -4,7 +4,7 @@ TALYSURF_TABLE = 'data_talysurf'
 TALYSURF_TABLE_COLUMNS ='''
             registered_at datetime,
             parts_no varchar(20),
-			lot_no varchar(10),
+	    lot_no varchar(10),
             entry_date datetime,
             mc_no varchar(10),
             measurement_item varchar(50),
