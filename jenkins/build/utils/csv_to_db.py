@@ -90,7 +90,8 @@ class PREPARE:
         result = {"status":constant.STATUS_ERROR,"file_name":self.path_now,"process":process,"message":msg,"error":e}
       
         try:
-            self.alert_line(self.alert_error_msg(result))
+            self.alert_line(self.alert_error_msg_line(result))
+            #self.alert_slack(self.alert_error_msg_slack(result))
             self.log_to_db(result)
             sys.exit()
         except Exception as e:
@@ -104,8 +105,19 @@ class PREPARE:
             self.info_msg(self.alert_line.__name__,'send msg to line notify')
         else:
             self.info_msg(self.alert_line.__name__,value)
+            
+    def alert_slack(self,msg):
+        value = alert.slack_notify(self.slack_notify_token,msg) 
+        if value == constant.STATUS_OK:
+            self.info_msg(self.alert_slack.__name__,'send msg to slack notify')
+        else:
+            self.info_msg(self.alert_slack.__name__,value)
 
-    def alert_error_msg(self,result):
+    def alert_error_msg_slack(self,result):
+        if self.slack_notify_token != None:
+            return f'\nproject: {self.table}\nfile_name: {self.path_now}\nprocess: {result["process"]}\nmessage: {result["message"]}\nerror: {result["error"]}\n'  
+
+    def alert_error_msg_line(self,result):
         if self.line_notify_token != None:
             return f'\nproject: {self.table}\nfile_name: {self.path_now}\nprocess: {result["process"]}\nmessage: {result["message"]}\nerror: {result["error"]}\n'
             
